@@ -1,4 +1,3 @@
-
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
@@ -6,7 +5,9 @@ import "@openzeppelin/contracts@5.0.0/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts@5.0.0/token/ERC20/extensions/ERC20Burnable.sol";
 import "@openzeppelin/contracts@5.0.0/access/Ownable.sol";
 
+
 contract UniqueToken is ERC20, ERC20Burnable, Ownable {
+   
     constructor(address initialOwner)
         ERC20("UniqueToken", "UTK")
         Ownable(initialOwner)
@@ -16,5 +17,18 @@ contract UniqueToken is ERC20, ERC20Burnable, Ownable {
 
     function mint(address to, uint256 amount) public onlyOwner {
         _mint(to, amount);
+    }
+
+    function burn(uint256 amount) public override {
+          
+        super.burn(amount);
+
+    }
+
+    function transfer(address recipient, uint256 amount) public override returns (bool) {
+
+        bool success = super.transfer(recipient, amount);
+
+        return success;
     }
 }
